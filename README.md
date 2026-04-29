@@ -1,68 +1,25 @@
 # Insighta Web Portal
 
-Web interface for Insighta Labs+ - Profile Intelligence System.
+Static browser portal for Insighta Labs+. It includes login, dashboard metrics, profile listing with filters and pagination, natural language search, profile details, CSV export, and an account view.
 
-## Features
+## Local run
 
-- GitHub OAuth authentication
-- HTTP-only cookies for token storage
-- CSRF protection
-- Dashboard with metrics
-- Profile listing with filters and pagination
-- Natural language search
-- Profile detail view
-- Account management
-
-## Installation
+Any static server works:
 
 ```bash
-npm install
+python -m http.server 5173
 ```
+
+Open `http://localhost:5173` and make sure the backend `Auth__WebPortalUrl` is set to the same origin.
 
 ## Configuration
 
-Create `.env` file:
-```
-VITE_API_URL=http://localhost:8000
-```
+Edit `app.js` or inject `window.INSIGHTA_BACKEND_URL` before loading it in production.
 
-## Development
+Required backend settings:
 
 ```bash
-npm run dev
+Auth__WebPortalUrl=https://your-web-url.com
+Auth__BackendPublicUrl=https://your-backend-url.com
+ALLOWED_ORIGINS=https://your-web-url.com
 ```
-
-## Build
-
-```bash
-npm run build
-```
-
-## Authentication
-
-The web portal uses HTTP-only cookies set by the backend:
-- Tokens are not accessible via JavaScript
-- Automatic token refresh handled by backend
-- CSRF tokens required for state-changing operations
-
-## Pages
-
-- `/login` - GitHub OAuth login
-- `/callback` - OAuth callback handler
-- `/` - Dashboard
-- `/profiles` - Profile list with filters
-- `/profiles/:id` - Profile detail
-- `/search` - Natural language search
-- `/account` - User account info
-
-## Tech Stack
-
-- React 18
-- React Router 6
-- React Query
-- Tailwind CSS
-- Vite
-
-## License
-
-MIT
