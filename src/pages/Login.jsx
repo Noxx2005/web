@@ -1,26 +1,19 @@
 import { useState } from 'react'
-import api from '../utils/api'
+
+// Get API URL from env
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
 function Login() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     setLoading(true)
     setError(null)
-
-    try {
-      // Get OAuth URL from backend
-      const response = await api.get('/auth/github', {
-        params: { flow: 'web' }
-      })
-      
-      // Redirect to GitHub OAuth
-      window.location.href = response.data.oauth_url
-    } catch (err) {
-      setError('Failed to initiate login. Please try again.')
-      setLoading(false)
-    }
+    
+    // Direct browser navigation to backend OAuth endpoint
+    // This allows the backend to set cookies and redirect properly
+    window.location.href = `${API_URL}/auth/github?flow=web`
   }
 
   return (
